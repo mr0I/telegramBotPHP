@@ -5,9 +5,10 @@
  * @author 
  */
 include '../Telegram.php';
+include '../env.php';
 
 // Set the bot TOKEN
-$bot_token = '1865956262:AAEhr0i8gDgEahzMT7QJoiO9QuKlxBCb_lc';
+$bot_token = getenv('BOT_TOKEN');
 // Instances the class
 $telegram = new Telegram($bot_token);
 
@@ -94,8 +95,13 @@ if (!is_null($text) && !is_null($chat_id)) {
         $keyb = $telegram->buildInlineKeyBoard($option);
         $content = ['chat_id' => $chat_id, 'reply_markup' => $keyb, 'text' => 'This is an InlineKeyboard Test with Callbacks'];
         $telegram->sendMessage($content);
-    }else{
-        $content = ['chat_id' => $chat_id, 'text' => 'sample text1000'];
+    } else if($text == '/keyboard'){
+        $option = [['A', 'B'], ['C', 'D','E']];
+        $keyb = $telegram->buildKeyBoard($option);
+        $content = ['chat_id' => $chat_id, 'reply_markup' => $keyb, 'text' => 'test keyboard'];
+        $telegram->sendMessage($content);
+    } else{
+        $content = ['chat_id' => $chat_id, 'text' => 'sample text1000', 'reply_to_message_id'=> $telegram->MessageID()];
          $telegram->sendMessage($content);
     }
 }
