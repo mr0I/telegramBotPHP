@@ -2074,9 +2074,7 @@ class Telegram
             'resize_keyboard'   => $resize,
             'selective'         => $selective,
         ];
-        $encodedMarkup = json_encode($replyMarkup, true);
-
-        return $encodedMarkup;
+        return json_encode($replyMarkup, true);
     }
 
     /// Set an InlineKeyBoard
